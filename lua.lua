@@ -1,7 +1,8 @@
 -- single line comment
 
 --[[
-    multi-line comment
+    multi-line
+    comment
 --]]
 
 num = 42 -- every number is a 64bit-precision double
@@ -11,7 +12,7 @@ wall_of_text = [[   lorem
                     ipsum
                     dolor
                     sit
-                    amet ]]
+                    amet ]] -- strings that span through several lines...
 
 print(name)
 print(wall_of_text)
@@ -31,4 +32,14 @@ do -- you can define blocks like this
 end
 
 print(age) -- not defined here...
+
+if i == 0 then
+    print("i hasn't changed...")
+elseif name ~= 'rui' then
+    print('the name has changed!')
+else
+    io.write('dang it... what\'s the name, then? ')
+    local input = io.read()
+    print('gocha! the name\'s ' + name)
+end
 
