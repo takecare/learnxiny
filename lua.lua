@@ -26,9 +26,9 @@ while i < 5 do
 end
 
 do -- you can define blocks like this
-    local name = 'miguel' -- this var is local to the block
+    local i = 0 -- this var is local to the block
     local age = 10
-    print(name)
+    name = 'miguel'
 end
 
 print(age) -- not defined here...
@@ -37,15 +37,18 @@ if i == 0 then
     print("i hasn't changed...")
 elseif name ~= 'rui' then
     print('the name has changed!')
+    bool = true
 else
     io.write('dang it... what\'s the name, then? ')
     input = io.read() -- this is global!
 end
 
-print(input)
+if bool then
+    print(input)
+end
 
 for i = 1, 5 do print(i); i = i + 1 end
-for j = 10, 1, -2 do print(j) end
+for j = 10, 1, -2 do print(j) end -- 'j' is local to the for loop
 
 repeat input = io.read() until input ~= 'functions'
 
@@ -67,10 +70,29 @@ end
 for i=1,100 do fizzBuzz(i) end
 
 function startFrom(y) -- anonymous function! remembers value of 'y'
-    return function (x) return x + y end
+    local f = function (x) return x + y end
+    return f
 end
 
 addToAHundred = startFrom(100)
 print(addToAHundred(10))
 print(addToAHundred(50))
-print(addToAHundred(-200))
+
+local x, y, z = -200, 400 -- z is nil!
+print(addToAHundred(x,400)) -- 400 is discarded!
+
+function call(f, times)
+    for k = 1, times do f() end
+end
+
+function dumb()
+    print('dumb')
+end
+
+call(dumb,5)
+
+local g = function (x) print(x); return function (y) print(y); return math.sin(y) * math.cos(x) end end
+local v = g(10)(10)
+print(v)
+
+
