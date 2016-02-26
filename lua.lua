@@ -39,7 +39,7 @@ elseif name ~= 'rui' then
     print('the name has changed!')
 else
     io.write('dang it... what\'s the name, then? ')
-    input = io.read()
+    input = io.read() -- this is global!
 end
 
 print(input)
@@ -49,10 +49,13 @@ for j = 10, 1, -2 do print(j) end
 
 repeat input = io.read() until input ~= 'functions'
 
-print("***** functions")
+-- *****************
+-- *** FUNCTIONS ***
 
 function fizzBuzz(n)
-    if n % 3 == 0 then
+    if n % 5 == 0 and n % 3 == 0 then
+        print("fizzbuzz") -- no str concatenation yet! :P
+    elseif n % 3 == 0 then
         print("fizz")
     elseif n % 5 == 0 then
         print("buzz")
@@ -63,11 +66,10 @@ end
 
 for i=1,100 do fizzBuzz(i) end
 
-function counter(x)
+function counter(x) --
     print(x)
     return function (x) return x + 1 end
 end
 
 f1 = counter(100)
-
 print(f1(10))
