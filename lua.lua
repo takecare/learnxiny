@@ -5,6 +5,9 @@
     comment
 --]]
 
+-- *******************
+-- *** VARS & FLOW ***
+
 num = 42 -- every number is a 64bit-precision double
 
 name = 'rui' -- strings are immutable
@@ -45,6 +48,8 @@ end
 
 if bool then
     print(input)
+elseif not bool then
+    print("REDUNDANCY!")
 end
 
 for i = 1, 5 do print(i); i = i + 1 end
@@ -67,7 +72,9 @@ function fizzBuzz(n)
     end
 end
 
-for i=1,100 do fizzBuzz(i) end
+if not bool then 
+    for i=1,100 do fizzBuzz(i) end
+end
 
 function startFrom(y) -- anonymous function! remembers value of 'y'
     local f = function (x) return x + y end
@@ -96,3 +103,11 @@ local v = g(10)(10)
 print(v)
 
 
+-- **************
+-- *** TABLES ***
+
+-- lua's only data structure, it's essentially a map
+
+table = { name = 'rui', age = 42 } -- the keys are like strings
+age = table['age']
+print(table.name .. ' is ' .. age .. ' years old')
