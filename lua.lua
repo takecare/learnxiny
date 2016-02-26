@@ -66,10 +66,11 @@ end
 
 for i=1,100 do fizzBuzz(i) end
 
-function counter(x) --
-    print(x)
-    return function (x) return x + 1 end
+function startFrom(y) -- anonymous function! remembers value of 'y'
+    return function (x) return x + y end
 end
 
-f1 = counter(100)
-print(f1(10))
+addToAHundred = startFrom(100)
+print(addToAHundred(10))
+print(addToAHundred(50))
+print(addToAHundred(-200))
