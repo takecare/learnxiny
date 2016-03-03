@@ -134,9 +134,20 @@ else
     print("not found!") 
 end
 
-for key, value in pairs(table) do
-    print(key, value)
+function printTable(table)
+    for key, value in pairs(table) do
+        print(key, value)
+    end    
 end
+
+function printList(list)
+    for i = 1, #list do
+        print(list[i])
+    end    
+end
+
+printTable(_G.pets) -- _G is a table that contains all globals
+
 
 
 
