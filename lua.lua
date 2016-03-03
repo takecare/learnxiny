@@ -111,3 +111,14 @@ print(v)
 table = { name = 'rui', age = 42 } -- the keys are like strings
 age = table['age']
 print(table.name .. ' is ' .. age .. ' years old')
+
+person = { name = 'nando', age = '23', height = 180 }
+person.weight = 73 -- adds a new entry to the table
+person.height = nil -- removes an entry from the table
+
+pets = { 'cat', 'dog', 'fish', 'snake' } -- tables with no defined keys work like arrays
+weights = { 42.3, 74, 68.7 }
+print(pets[1]) -- 'array' indexes start at 1
+pets[-1] = 'tardigrad' -- and given that they're tables, they can have negative indexes
+pets[100] = 't-rex' -- and holes!
+
