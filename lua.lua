@@ -122,3 +122,22 @@ print(pets[1]) -- 'array' indexes start at 1
 pets[-1] = 'tardigrad' -- and given that they're tables, they can have negative indexes
 pets[100] = 't-rex' -- and holes!
 
+table = { key = 'value' }
+aKey = 'key'
+anotherKey = 'k' .. 'e' .. 'y'
+print(table[aKey] .. ' ' .. table[anotherKey])
+
+table = {['+'] = "plus", ['-'] = "minus", ['='] = "equals", [{}] = "empty"}
+if table[{}] then -- this {} is a different object from the one in the table
+    print("found!")
+else
+    print("not found!") 
+end
+
+for key, value in pairs(table) do
+    print(key, value)
+end
+
+
+
+
