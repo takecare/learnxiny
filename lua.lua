@@ -146,9 +146,37 @@ function printList(list)
     end    
 end
 
-printTable(_G.pets) -- _G is a table that contains all globals
+printTable(_G.pets) -- _G is a table that contains all globalsprint(getmetatable(_G))
 
 
+-- ******************
+-- *** METATABLES ***
 
+point = {}
+function point.__add(a,b)
+    local p = {}
+    p.x = a.x + b.x
+    p.y = a.y + b.y
+    return p
+end
 
+function point.__scale(p,s)
+    local np = {}
+    np.x = p.x * s
+    np.y = p.y * s
+    return np
+end
 
+pA,pB={x=2,y=3},{x=4,y=2}
+
+setmetatable(pA,point)
+setmetatable(pB,point)
+
+printTable(getmetatable(pA))
+k = getmetatable(pA)['__scale'](pA,3)
+printTable(k)
+
+pC = pA + pB
+-- printTable(pC)
+
+-- pX = pC.scale(pC,3)
