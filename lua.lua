@@ -38,7 +38,7 @@ print(age) -- not defined here...
 
 if i == 0 then
     print("i hasn't changed...")
-elseif name ~= 'rui' then
+elseif name ~= 'rui' then -- not equals
     print('the name has changed!')
     bool = true
 else
@@ -57,6 +57,7 @@ for j = 10, 1, -2 do print(j) end -- 'j' is local to the for loop
 
 repeat input = io.read() until input ~= 'functions'
 
+
 -- *****************
 -- *** FUNCTIONS ***
 
@@ -72,9 +73,9 @@ function fizzBuzz(n)
     end
 end
 
-if not bool then 
-    for i=1,100 do fizzBuzz(i) end
-end
+-- if not bool then 
+--     for i=1,100 do fizzBuzz(i) end
+-- end
 
 function startFrom(y) -- anonymous function! remembers value of 'y'
     local f = function (x) return x + y end
@@ -83,7 +84,8 @@ end
 
 addToAHundred = startFrom(100)
 print(addToAHundred(10))
-print(addToAHundred(50))
+addToAThousand = startFrom(1000)
+print(addToAThousand(50))
 
 local x, y, z = -200, 400 -- z is nil!
 print(addToAHundred(x,400)) -- 400 is discarded!
@@ -105,7 +107,6 @@ print(v)
 
 -- **************
 -- *** TABLES ***
-
 -- lua's only data structure, it's essentially a map
 
 table = { name = 'rui', age = 42 } -- the keys are like strings
@@ -153,18 +154,22 @@ printTable(_G.pets) -- _G is a table that contains all globalsprint(getmetatable
 -- *** METATABLES ***
 
 point = {}
-function point.__add(a,b)
+function point.__add(a,b) -- will override the + operand
     local p = {}
     p.x = a.x + b.x
     p.y = a.y + b.y
     return p
 end
 
-function point.__scale(p,s)
+function point.__scale(p,s) -- adds/defines 'scale' function/method
     local np = {}
     np.x = p.x * s
     np.y = p.y * s
     return np
+end
+
+function point.__len() -- overrides the # operator
+    return 0
 end
 
 pA,pB={x=2,y=3},{x=4,y=2}
@@ -172,11 +177,16 @@ pA,pB={x=2,y=3},{x=4,y=2}
 setmetatable(pA,point)
 setmetatable(pB,point)
 
+print("metatable of a point: ")
 printTable(getmetatable(pA))
+
 k = getmetatable(pA)['__scale'](pA,3)
+print("applying 'scale' function on a point: ")
 printTable(k)
 
 pC = pA + pB
 -- printTable(pC)
 
--- pX = pC.scale(pC,3)
+pX = pC.scale(pC,3)
+
+print(#pA)
