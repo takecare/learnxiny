@@ -7,6 +7,7 @@
 
 -- *******************
 -- *** VARS & FLOW ***
+print '\n\n*** VARS & FLOW ***'
 
 num = 42 -- every number is a 64bit-precision double
 
@@ -40,7 +41,7 @@ if i == 0 then
     print("i hasn't changed...")
 elseif name ~= 'rui' then -- not equals
     print('the name has changed!')
-    bool = true
+    bool = true -- bool is declared as a global
 else
     io.write('dang it... what\'s the name, then? ')
     input = io.read() -- this is global!
@@ -60,6 +61,7 @@ repeat input = io.read() until input ~= 'functions'
 
 -- *****************
 -- *** FUNCTIONS ***
+print '\n\n*** FUNCTIONS ***'
 
 function fizzBuzz(n)
     if n % 5 == 0 and n % 3 == 0 then
@@ -108,6 +110,7 @@ print(v)
 -- **************
 -- *** TABLES ***
 -- lua's only data structure, it's essentially a map
+print '\n\n*** TABLES ***'
 
 table = { name = 'rui', age = 42 } -- the keys are like strings
 age = table['age']
@@ -147,11 +150,13 @@ function printList(list)
     end    
 end
 
-printTable(_G.pets) -- _G is a table that contains all globalsprint(getmetatable(_G))
+printTable(_G.pets) -- _G is a table that contains all globals
+--print(getmetatable(_G))
 
 
 -- ******************
 -- *** METATABLES ***
+print '\n\n*** METATABLES ***'
 
 point = {}
 function point.__add(a,b) -- will override the + operand
