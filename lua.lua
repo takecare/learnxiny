@@ -66,8 +66,8 @@ until input == 'takecare'
 -- *** FUNCTIONS ***
 print '\n\n*** FUNCTIONS ***'
 
-function fizzBuzz(n) -- you can improve this ;)
-    if n % 5 == 0 and n % 3 == 0 then
+function fizzBuzz(n)
+    if n % 5 == 0 and n % 3 == 0 then -- you can improve this ;)
         print("fizzbuzz")
     elseif n % 3 == 0 then
         print("fizz")
@@ -166,41 +166,79 @@ function anotherPrintList( ... )
 end
 
 printTable(_G.pets) -- _G is a table that contains all globals
---printList(pets) -- won't work 'cause this list has wholes
---anotherPrintList(pets) -- won't work 'cause this list has wholes
+--printList(pets) -- won't work 'cause this list has holes
+--anotherPrintList(pets) -- won't work 'cause this list has holes
 
 
--- ******************
--- *** METATABLES ***
-print '\n\n*** METATABLES ***'
+-- *******************
+-- *** MORE TABLES ***
+print '\n\n*** MORE TABLES ***'
 
-point = {}
-function point.__add(a,b) -- will override the + operand
+-- we'll be defining Point as an object
+Point = {x=0, y=0}
+
+--[[ important at this point:
+ as there are no classes in lua, it's approach to OO is based
+ on prototype-style declarations ]]--
+
+-- we've declared Point and we'lbe be using it as a prototype
+
+print('___ adding functions to objects')
+function Point.scale(point, factor) -- adds/defines 'scale' function/method
+    local newPoint = {}
+    newPoint.x = point.x * factor
+    newPoint.y = point.y * factor
+    return newPoint
+end
+-- this aint' good though, as we're returning a new point every time...
+
+myPoint = {x=10, y=10, scale = Point.scale}
+myPoint.scale(myPoint, 2) -- what are myPoint's values at this point?
+
+function Point.print(self)
+    print('(' .. self.x .. ', ' .. self.y .. ')')
+end
+
+-- myPoint.print(myPoint) -- this won't work 'cause print() is not defined for myPoint
+myPoint.print = Point.print
+myPoint.print(myPoint)
+
+function Point.scale(point, factor) -- adds/defines 'scale' function/method
+    point.x = point.x * factor
+    point.y = point.y * factor
+    return point
+end
+
+myPoint.scale = Point.scale
+myPoint.print(myPoint.scale(myPoint, 3.5)) -- ugh... we must be able to improve this
+
+samePointButScaledAgain = myPoint:scale(2)
+samePointButScaledAgain:print()
+-- myPoint:scale(2):print() -- this would produce the same
+
+function Point.__add(a,b) -- will override the + operand
     local p = {}
     p.x = a.x + b.x
     p.y = a.y + b.y
     return p
 end
 
-function point.__scale(p,s) -- adds/defines 'scale' function/method
-    local np = {}
-    np.x = p.x * s
-    np.y = p.y * s
-    return np
-end
-
-function point.__len() -- overrides the # operator
+function Point.__len() -- overrides the # operator
     return 0
 end
 
-pA,pB={x=2,y=3},{x=4,y=2}
+-- ******************
+-- *** METATABLES ***
+print '\n\n*** METATABLES ***'
 
-setmetatable(pA,point)
-setmetatable(pB,point)
+pA, pB = {x=2,y=3}, {x=4,y=2}
+
+setmetatable(pA, Point)
+setmetatable(pB, Point)
 
 print("metatable of a point: ")
 printTable(getmetatable(pA))
-
+--[[
 k = getmetatable(pA)['__scale'](pA,3)
 print("applying 'scale' function on a point: ")
 printTable(k)
@@ -211,3 +249,4 @@ pC = pA + pB
 -- pX = pC.scale(pC,3)
 
 print(#pA)
+--]]
