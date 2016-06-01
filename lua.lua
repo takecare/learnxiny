@@ -82,8 +82,8 @@ end
 --     for i=1,100 do fizzBuzz(i) end
 -- end
 
-function startFrom(y) -- anonymous function! remembers value of 'y'
-    local f = function (x) return x + y end
+function startFrom(y)
+    local f = function (x) return x + y end -- anonymous function, remembers value of 'y'
     return f
 end
 
