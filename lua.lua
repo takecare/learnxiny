@@ -216,6 +216,11 @@ print('scaled again: ' .. scaledPoint.x .. ', ' .. scaledPoint.y) -- there we go
 
 samePointButScaledAgain = myPoint:scale(2):print()
 
+
+-- ******************
+-- *** METATABLES ***
+print '\n\n*** METATABLES ***'
+
 function Point.__add(a,b) -- will override the + operand
     local p = {}
     p.x = a.x + b.x
@@ -223,13 +228,9 @@ function Point.__add(a,b) -- will override the + operand
     return p
 end
 
-function Point.__len() -- overrides the # operator
-    return 0
+function Point.__len() -- overrides the # operator on the Point table
+    return 42
 end
-
--- ******************
--- *** METATABLES ***
-print '\n\n*** METATABLES ***'
 
 pA, pB = {x=2,y=3}, {x=4,y=2}
 
@@ -238,6 +239,20 @@ setmetatable(pB, Point)
 
 print("metatable of a point: ")
 printTable(getmetatable(pA))
+
+pC = pA + pB -- + will call __add from pA's metatable
+
+print('the length of A is ' .. #pA)
+
+Point.__index = { name = 'Point'} -- "default" indexes for the table that is Point
+print('name is... ' .. pA.name) -- remember, pA's metatable is Point's metatable
+
+Point.__concat = Point.__add -- you can assign functions here too!
+print('pA.x + pB.x = ' .. (pA .. pB).x)
+
+-- values of a metatable's indexes are called metamethods
+-- __concat is a metatable index in Point's metatable, which value we set to Point.__add
+
 --[[
 k = getmetatable(pA)['__scale'](pA,3)
 print("applying 'scale' function on a point: ")
