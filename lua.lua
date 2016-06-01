@@ -128,7 +128,7 @@ person.weight = 73 -- adds a new entry to the table
 person.height = nil -- removes an entry from the table
 
 print '___ using tables as arrays'
-pets = { 'cat', 'dog', 'fish', 'snake' } -- tables with no defined keys work like arraysweights = { 42.3, 74, 68.7 }
+pets = { 'cat', 'dog', 'fish', 'snake' } -- tables with no defined keys work like arrays
 print(pets[1]) -- 'array' indexes start at 1
 pets[-1] = 'tardigrad' -- and given that they're tables, they can have negative indexes
 pets[100] = 't-rex' -- and holes!
@@ -141,7 +141,7 @@ print(table[aKey] .. ' ' .. table[anotherKey])
 
 
 table = {['+'] = "plus", ['-'] = "minus", ['='] = "equals", [{}] = "empty"}
-if table[{}] then -- this {} is a different object from the one in the table, it's a new one!
+if table[{}] then -- this {} is a different object from the one in the table, it's a new one! given it's the table ctor
     print("found!")
 else
     print("not found!")
@@ -153,9 +153,9 @@ function printTable(table)
     end    
 end
 
-function printList(list)
-    for i = 1, #list do
-        print(list[i])
+function printArray(array)
+    for i = 1, #array do
+        print(array[i])
     end    
 end
 
@@ -210,11 +210,11 @@ function Point.scale(point, factor) -- adds/defines 'scale' function/method
 end
 
 myPoint.scale = Point.scale
-myPoint.print(myPoint.scale(myPoint, 3.5)) -- ugh... we must be able to improve this
+myPoint.print(myPoint.scale(myPoint, 3.5)) -- this syntax... ugh... surely we can improve this
+local scaledPoint = myPoint:scale(2)
+print('scaled again: ' .. scaledPoint.x .. ', ' .. scaledPoint.y) -- there we go!
 
-samePointButScaledAgain = myPoint:scale(2)
-samePointButScaledAgain:print()
--- myPoint:scale(2):print() -- this would produce the same
+samePointButScaledAgain = myPoint:scale(2):print()
 
 function Point.__add(a,b) -- will override the + operand
     local p = {}
