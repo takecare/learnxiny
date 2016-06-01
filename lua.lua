@@ -108,8 +108,8 @@ end
 call(dumb,5)
 
 -- can  you guess the outcome?
-local g = function (x) print(x); return function (y) print(y); return math.sin(y) * math.cos(x) end end
-local v = g(10)(10)
+local g = function (x) print(x); return function (y) print(y); return y + x end end
+local v = g(10)(15)
 io.write('and the value is... ' .. v)
 
 
